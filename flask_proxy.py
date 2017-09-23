@@ -8,11 +8,10 @@ server.py
 import socket
 from flask import Flask, request
 
-import tcpclient.low_layer_http_client
+from http_client import http_client
 
 
 app = Flask(__name__)
-
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -43,12 +42,13 @@ def generate_client_data(request):
 
 def client_routine(request):
     '''HTTPリクエストの送信＆HTTPレスポンスの受取'''
-    client = tcpclient.low_layer_http_client.TCP(host='', port='', request=request)
-    client.connect()
-    client.send(request['header'])
-    response = client.get_response()
-    client.close()
+    client = http_client.LowLayerHTTPClient(request=request)    # インスタンス作成
+    client.connect()                                            # 接続
+    client.send(request['header'])                              # リクエスト送信
+    response = client.get_response()                            # レスポンス受取
+client.close()                                                  # ソケット終了
     return response
+
 
 if __name__ == '__main__':
     app.run(debug=True)
