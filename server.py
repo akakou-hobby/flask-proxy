@@ -21,7 +21,7 @@ class FlaskProxy:
         return 'response'
 
     def generate_client_data(self, requests):
-        '''クライアントデータを生成'''
+        '''HTTPリクエストの生成'''
         # HTTPリクエスト（文字列）の生成
         header = request.method + ' ' + \
             request.full_path + '\n' + \
