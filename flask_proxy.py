@@ -46,7 +46,7 @@ def client_routine(request):
     client.connect()                                            # 接続
     client.send(request['header'])                              # リクエスト送信
     response = client.get_response()                            # レスポンス受取
-client.close()                                                  # ソケット終了
+    client.close()                                              # ソケット終了
     return response
 
 
